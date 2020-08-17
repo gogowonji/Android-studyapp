@@ -6,4 +6,15 @@
         android:id="@+id/logout"
         android:title="로그아웃"
         app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="login"-->
+<!--        android:title="로그인">-->
+
+<!--    </item>-->
+<!--    <item-->
+<!--        android:id="@+id/add_id"-->
+<!--        android:title="회원가입">-->
+
+<!--    </item>-->
+
 </menu>

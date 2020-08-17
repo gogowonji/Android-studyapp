@@ -23,11 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        setContentView(R.layout.activity_login_start_view)
+//        // login 완료시 R.layout.activity_main 으로 넘어가기
+
         setContentView(R.layout.activity_main) //setContentview 실행시 가장 먼저 나오는 화면
 
-//        //loadview
-//        val intent = Intent(this, Loadingview::class.java)
-//        startActivity(intent)
 
         val bottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottom_navi)

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.edit_box.*
 import kotlinx.android.synthetic.main.fragment_1.*
 import kotlinx.android.synthetic.main.todo_item.*
+import kotlinx.android.synthetic.main.todo_item.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,11 +32,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 
+var s: Int = 0
 
 class Fragment1 : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
 
     //binding
     private var _binding: Fragment1Binding? = null
@@ -67,7 +71,6 @@ class Fragment1 : Fragment() {
 
         _binding = Fragment1Binding.inflate(inflater, container, false)
         val view = binding.root
-
 
         data.add(Todo("work"))
         data.add(Todo("hey",true))
@@ -116,27 +119,52 @@ class Fragment1 : Fragment() {
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun editTodo(todo : Todo) {
-
-        if (edit.callOnClick()) {
 
 
-            Todo_list.setVisibility(View.INVISIBLE)
-            edit_text.setVisibility(View.VISIBLE)
-            val temp1: String = todo.toString()
-            edit_text.setText(temp1)
-            edit_text.setText(binding.editText.text.toString())
+    private fun editTodo(todo: Todo) {
 
 
-        } else {
-            edit_text.setVisibility(View.INVISIBLE)
-            Todo_list.setVisibility(View.VISIBLE)
-            Todo_list.setText(binding.editText.text.toString())
 
 
-        }
+            if(s == 0) {
+                Todo_list.setVisibility(View.GONE)
+                todo_edit.setVisibility(View.VISIBLE)
+                val temp1: String = todo.text.toString()
+
+                Log.d("temp1 ", "${temp1}")
+
+                todo_edit.setText(temp1)
+                todo_edit.setText(todo_edit.text)
+//                Todo_list.setText(todo_edit.text)
+//                todo.text = todo_edit.text.toString()
+
+                Log.d("todo ", "${todo.text}")
+                Log.d("text: ", "${todo_edit.text}")
+
+                Log.d("s1: ", "${s}")
+
+                s = 1
+
+                Log.d("s2: ", "${s}")
 
 
+            }else if(s == 1) {
+                Log.d("s3: ", "${s}")
+                Log.d("todo: ", "${Todo_list.text}")
+                Log.d("text: ", "${todo_edit.text}")
+                Todo_list.setVisibility(View.VISIBLE)
+                todo_edit.setVisibility(View.GONE)
+                s = 0
+                Log.d("s4: ", "${s}")
+
+
+            }
+        todo_edit.setText(todo_edit.text)
+        Todo_list.setText(todo_edit.text)
+        Log.d("todo: ", "${todo.text}")
+        Log.d("text: ", "${todo_edit.text}")
+
+        Log.d("s5: ", "${s}")
 
 
 
@@ -174,7 +202,7 @@ class Fragment1 : Fragment() {
 }
 
 data class Todo(
-    val text: String,
+    var text: String,
     var isDone: Boolean = false
 )
 
