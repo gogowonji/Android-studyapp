@@ -32,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 
-var s: Int = 0
+
 
 class Fragment1 : Fragment() {
     // TODO: Rename and change types of parameters
@@ -83,9 +83,6 @@ class Fragment1 : Fragment() {
                 onClickDeleteIcon = {
                     deleteTodo(it)
                 },
-                onClickEditIcon = {
-                    editTodo(it)
-                },
                 onClickItem = {
                     toggleTodo(it)
                 }
@@ -121,55 +118,6 @@ class Fragment1 : Fragment() {
 
 
 
-    private fun editTodo(todo: Todo) {
-
-
-
-
-            if(s == 0) {
-                Todo_list.setVisibility(View.GONE)
-                todo_edit.setVisibility(View.VISIBLE)
-                val temp1: String = todo.text.toString()
-
-                Log.d("temp1 ", "${temp1}")
-
-                todo_edit.setText(temp1)
-                todo_edit.setText(todo_edit.text)
-//                Todo_list.setText(todo_edit.text)
-//                todo.text = todo_edit.text.toString()
-
-                Log.d("todo ", "${todo.text}")
-                Log.d("text: ", "${todo_edit.text}")
-
-                Log.d("s1: ", "${s}")
-
-                s = 1
-
-                Log.d("s2: ", "${s}")
-
-
-            }else if(s == 1) {
-                Log.d("s3: ", "${s}")
-                Log.d("todo: ", "${Todo_list.text}")
-                Log.d("text: ", "${todo_edit.text}")
-                Todo_list.setVisibility(View.VISIBLE)
-                todo_edit.setVisibility(View.GONE)
-                s = 0
-                Log.d("s4: ", "${s}")
-
-
-            }
-        todo_edit.setText(todo_edit.text)
-        Todo_list.setText(todo_edit.text)
-        Log.d("todo: ", "${todo.text}")
-        Log.d("text: ", "${todo_edit.text}")
-
-        Log.d("s5: ", "${s}")
-
-
-
-
-    }
 
 
     override fun onDestroyView() {
@@ -209,7 +157,6 @@ data class Todo(
 class TodoAdapter(
     private val myDataset: List<Todo>,
     val onClickDeleteIcon: (todo: Todo) -> Unit,
-    val onClickEditIcon : (todo : Todo) -> Unit,
     val onClickItem: (todo: Todo) -> Unit
 ) :
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -255,10 +202,6 @@ class TodoAdapter(
 
         holder.binding.delete.setOnClickListener {
             onClickDeleteIcon.invoke(todo)
-        }
-
-        holder.binding.edit.setOnClickListener{
-            onClickEditIcon.invoke(todo)
         }
 
         holder.binding.root.setOnClickListener{
